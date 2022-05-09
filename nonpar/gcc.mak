@@ -32,14 +32,14 @@ mean.o zeroin.o error.o outf.o plot.o nsolver.o genini.o \
 genmean.o genpar.o nonlin.o lst2.o tlst.o adjoint.o tadjoint.o \
 asolver_v3.o dasolver_v5.o post.o ddalpha.o
 
+ifdef USE_NR
+	OBJS += nr_rtsafe.o
+endif
+
 $(NAME): $(MODS) $(OBJS) growth.o
 	$(FC) $(OFLAGS) $(MODS) $(OBJS) growth.o -o $(NAME) $(LIB)
 
 $(OBJS): $(MODS)
-
-ifdef USE_NR
-	OBJS += nr_rtsafe.o
-endif
 
 growth.o: fmax.o
 
