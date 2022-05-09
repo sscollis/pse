@@ -1,0 +1,159 @@
+%========================================================================
+%
+%  PSE Users guide
+%
+%  S. Collis
+%
+%  8-2-99
+%========================================================================
+\documentclass[10pt]{article}
+\usepackage{fullpage}
+\usepackage{xspace}
+\usepackage{supertabular}
+\usepackage{longtable}
+
+%\usepackage{lucidbry}
+
+\newcommand{\pse}{\textsf{PSE}\xspace}
+\newcommand{\lst}{\textsf{LST}\xspace}
+\renewcommand{\ast}{\textsf{AST}\xspace}
+
+\begin{document}
+
+\title{\pse Users Guide}
+\author{S. Scott Collis \\
+Rice University \\
+Houston, TX 77005-1892 }
+\date{\today}
+\maketitle
+
+\section*{Coordinates and definitions}
+
+\pse is written in a body fitted curvilinear coordinate system where $x$ is
+the streamwise direction, $y$ is the wall normal direction, and $z$ is the
+spanwise direction.  Time is denoted by $t$ and the temporal variation of
+solutions is represented in the frequency domain where $\omega$ is the
+fundamental frequency.  Similarly, a Fourier representation is also used in
+$z$ with a fundamental wavenumber of $\beta$.  The velocity components are
+represented by $u$, $v$, and $w$ in the streamwise, wall normal, and spanwise
+directions, respectively.
+
+\section*{\pse input file}
+
+The input file for \pse is called {\tt pse.inp} and it is in Fortran90
+namelist format.  The following table defines each parameter and the values
+that they can take.
+
+\setlongtables
+\begin{longtable}[c]{|l|l|l|}
+\caption {\pse Input Parameters \label{t:parm}} \\
+\hline
+\multicolumn{1}{|l}{\textbf{Parameter}} & 
+\multicolumn{1}{|c|}{\textbf{Description}} &
+\multicolumn{1}{c|}{\textbf{Notes}} \\ 
+\hline
+\endfirsthead
+\multicolumn{3}{c}{Table \ref{t:parm}: Continued from pervious page} \\[1ex]
+\hline
+\multicolumn{1}{|l}{\textbf{Parameter}} & 
+\multicolumn{1}{|c|}{\textbf{Description}} &
+\multicolumn{1}{c|}{\textbf{Notes}} \\ 
+\hline
+\endhead
+\hline
+\multicolumn{3}{r}{continued on next page} \\[1ex]
+\endfoot
+\hline
+\endlastfoot
+%
+{\tt ITYPE} & Execution mode & 
+     0 : linear \pse \\
+& &  1 : nonlinear \pse \\
+& &  2 : adjoint \pse \\
+& &  3 : discrete adjoint \pse \\
+& & -1 : spatial \lst \\
+& & -2 : temporal \lst \\
+& & -3 : spatial \ast \\
+& & -4 : temporal \ast \\
+& & -5 : discrete temporal \ast \\
+& & -6 : discrete spatial  \ast \\
+{\tt NX} & Number of nodes in $x$ & only used with {\tt IMEAN}=0 \\
+{\tt NY} & Number of nodes in $y$ & overrides mean flow {\tt NY} \\
+{\tt NZ} & Number of modes in $z$ & \\
+{\tt NT} & Number of modes in $t$ & \\
+{\tt BETA} & Fundamental spanwise wavenumber & \\
+{\tt OMEGA} & Fundamental frequency& \\
+{\tt RE} & Reference Reynolds number & \\
+{\tt ICURV} & Curvature flag & 0 : no curvature terms \\
+& & 1 : curvature terms \\
+{\tt IMEAN} & Meanflow type & 0 : parallel mean flow \\
+& & 1 : boundary layer flow \\
+& & 2 : Navier--Stokes flow \\
+{\tt IVBC} & $v$-velocity BC on top boundary & 0: $v = 0$ \\
+& & 1 : $\partial v/\partial y|_w = 0$ \\
+{\tt IPWBC} & pressure BC on wall boundary & 0 : 
+$\partial p/\partial y|_w = 0$ \\
+& & 1 : wall normal momentum equation \\
+& & 2 : continuity at wall \\
+{\tt IPBC} & pressure BC on top boundary & 0 :  $p = 0$ \\
+& & 1 : $\partial p/\partial y|_{y_max} = 0$ \\
+{\tt MKZ} & Spanwise modes in initial condition & for nonlinear \pse \\
+{\tt MKT} & Frequencies in initial condition & for nonlinear \pse \\
+{\tt XMAX} & Length of domain in $x$ & only for {\tt IMEAN} = 0 \\
+{\tt XS1} & Stretching parameter 1 & only for {\tt IMEAN} = 0 \\
+{\tt XS2} & Stretching parameter 2 & only for {\tt IMEAN} = 0 \\
+{\tt DX1} & Initial $\Delta x$ & only for Imean = 0 \\
+{\tt Ymax} & Maximum $y$ & Should be several BL thicknesses \\
+{\tt YSTR} & Stretching parameter & $ 0 < {\tt YSTR} < 1 $ \\
+{\tt TOL} & Tolerance for \pse iterations & $\approx 1 \times 10^{-8}$ \\
+{\tt IPFIX} & Pressure update for \pse & use 1 \\
+{\tt NITER} & Number of \pse iterations& typically 5-50\\
+{\tt IS} & Starting index for \pse & location for \lst \\
+{\tt IE} & Ending index for \pse & location for \ast \\
+{\tt NORM} & \pse normalization flag & 0 : Kinetic energy \\
+& & 1 : $u_{max}$ \\
+{\tt NINT} & Interpolation in {\tt NY} for $u_{max}$ evaluation & \\
+{\tt INT} & Interpolation factor in {\tt NX} for field output & 
+$< 1$ denotes no interpolation \\
+{\tt SOR} & SOR parameter for \pse iteration & $1 \le {\tt SOR} < 2$ \\
+{\tt PLOCK} & Phase lock flag & 0 : unlocked \\
+& & 1 : phase locked \\
+{\tt EPS} & Mode generation tolerance & $1\times 10^{-8}$ \\
+{\tt ALPI} & Meanflow modification parameter & $-1\times 10^{-3}$ \\
+\end{longtable}
+
+\section*{Mean flow input files}
+
+As indicated in Table \ref{t:parm} there are three options for the meanflow.
+If running on a parallel baseflow, ${\tt IMEAN}=0$, then the code reads the
+profile from {\tt profile.dat}.  For boundary layer base flows, ${\tt
+IMEAN}=1$, the baseflow is read from {\tt bl\_sta.out}.  And the last option is
+for a Navier--Stokes solution, ${\tt IMEAN}=2$ which is read from {\tt
+field.dat}.
+
+\section*{Disturbance initial profiles} \label{s:initial}
+
+The disturbance profiles are read from {\tt inflow.???} where the extension is
+used to denote the spanwise wavenumber and the temporal frequency.  The
+fundamental is denoted with a 1, the first harmonic by 2, etc.  For example,
+{\tt inflow.+12} is the fundmental $+$ mode in the span and the harmonic in
+time.  Likewise {\tt inflow.+01} has no variation in the span and the
+fundamental frequency, and {\tt inflow.+00} is the mean flow modification
+term.
+
+\section*{Output}
+
+The primary \pse output is in the file {\tt pse.dat} which contains $\alpha$
+and other quantities of interest during the \pse calculation.  The file {\tt
+grow.dat} contains various measures of the disturbance amplitude as well as
+associated growth rates.  The file {\tt pro.dat} contains the \pse
+shapefunctions at the last computed station.
+
+The code also outputs the entire computed fields (possibly interpolated in the
+$x$ direction depending on the value of {\tt INT} ) for each combination of
+spanwise and temporal modes using the same indexing notation described in
+\ref{s:initial} but with the basename {\tt field.???}.
+
+To convert a {\tt field.???} file to Plot3D format use the program {\tt
+mkqr8}.
+\end{document}
