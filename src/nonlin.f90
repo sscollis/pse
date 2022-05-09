@@ -22,6 +22,8 @@
       complex :: ul(ny), vl(ny), wl(ny)
 !==============================================================================
 
+      write(*,*) "WARNING:  FFT routines are turned off in nonlin.f90"
+
 !.... compute the amplitude for each mode
 
       do n = 1, mt
