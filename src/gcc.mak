@@ -27,11 +27,10 @@ MODS = global.o int2str.o
 #
 #  All objects are listed here
 #
-OBJS = \
-bslib1.o bslib2.o pse.o input.o setup.o opper.o genmf.o mean.o \
+OBJS = bslib1.o bslib2.o pse.o input.o setup.o opper.o genmf.o mean.o \
 zeroin.o error.o outf.o plot.o nsolver.o genini.o \
 genmean.o genpar.o nonlin.o lst_v1.o tlst.o adjoint.o tadjoint.o \
-asolver_v4.o rtsafe.o post.o dasolver_v6.o ddalpha.o duda_v2.o
+asolver_v4.o post.o dasolver_v6.o ddalpha.o duda_v2.o
 
 OBJS2 = growth.o solver_v4.o fmax.o
 
@@ -58,4 +57,4 @@ clean:
 	 $(FC) $(F90FLAGS) $*.f90 
 
 .f.o:
-	 $(F77) -ffixed-line-length-120 $(FFLAGS) $*.f
+	 $(F77) $(FFLAGS) $*.f
