@@ -33,3 +33,9 @@
 
 pse
 Makefile
+
+# LaTeX
+*.aux
+*.dvi
+*.log
+
