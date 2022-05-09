@@ -1,0 +1,30 @@
+&PARM
+ NX =           50 
+ NY =           64 
+ NZ =            3 
+ NT =           12 
+ BETA =      0.000
+ OMEGA =     0.080
+ RE =       1000.0
+ ICURV =         0
+ IMEAN =         0
+ IVBC =          0
+ IPWBC =         0
+ IPBC =          2
+ ITYPE =        -2  
+ MKZ =           0
+ MKT =           1
+ XMAX =    275.521
+ XS1 =      1.0e10
+ XS2 =        20.0
+ DX1 =         0.5
+ YMAX =       80.0
+ YSTR =       0.01 
+ TOL =      1.0E-8
+ IPFIX =         1
+ NITER =        50 
+ IS =            1
+ IE =            2  
+/
+ymax = 20.0
+ystr = 0.01
