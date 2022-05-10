@@ -35,8 +35,15 @@ asolver_v4.o post.o dasolver_v6.o ddalpha.o duda_v2.o
 OBJS2 = growth.o solver_v4.o fmax.o
 
 ifdef USE_NR
-	OBJS += nr_rtsafe.o
+  ifeq ($(LIBNR_DIR),)
+    LIBNR_DIR = $(HOME)/git/NR-utilities
+  endif
+  LIB += -L$(LIBNR_DIR) -lnr 
 endif
+
+#ifdef USE_NR
+#  OBJS += nr_rtsafe.o
+#endif
 
 $(NAME): $(MODS) $(OBJS) $(OBJS2)
 	$(FC) $(OFLAGS) $(MODS) $(OBJS) $(OBJS2) $(LIB) -o $(NAME)

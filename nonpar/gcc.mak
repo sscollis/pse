@@ -33,8 +33,15 @@ genmean.o genpar.o nonlin.o lst2.o tlst.o adjoint.o tadjoint.o \
 asolver_v3.o dasolver_v5.o post.o ddalpha.o
 
 ifdef USE_NR
-	OBJS += nr_rtsafe.o
+  ifeq ($(LIBNR_DIR),)
+    LIBNR_DIR = $(HOME)/git/NR-utilities
+  endif
+  LIB += -L$(LIBNR_DIR) -lnr 
 endif
+
+#ifdef USE_NR
+#  OBJS += nr_rtsafe.o
+#endif
 
 $(NAME): $(MODS) $(OBJS) growth.o
 	$(FC) $(OFLAGS) $(MODS) $(OBJS) growth.o -o $(NAME) $(LIB)
