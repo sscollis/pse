@@ -33,4 +33,4 @@ parallel     |  test cases on parallel boundary layers
 nonpar       |  Nonparallel flow version
 notes        |  Code notes and users guide
 
-S. Scott Collis\
+S. Scott Collis
