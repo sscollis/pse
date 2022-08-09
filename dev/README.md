@@ -9,3 +9,4 @@ Note that this uses SGI FFT routines as well as outdated LINPACK routines
 that need to be replaced with FFTW and LAPACK.
 
 S. Scott Collis\
+flow.physics.simulation@gmail.com
