@@ -39,3 +39,6 @@ Makefile
 *.dvi
 *.log
 
+dev/nr_rtsafe.f
+nonpar/nr_rtsafe.f
+src/nr_rtsafe.f
