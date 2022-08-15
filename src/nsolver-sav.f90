@@ -38,6 +38,8 @@
       real :: c1(ny), c2(ny), dum
 !==============================================================================
 
+      write(*,*) "WARNING:  FFT routines are turned off in nonlin.f90"
+
 !.... Initialize the FFT's
 
       call fft( 0, nt, nz, dum )
@@ -103,7 +105,7 @@
       do j = 1, ny
         ke = ke + opi(j)*(abs(ul(j))**2 + abs(vl(j))**2 + abs(wl(j))**2)
       end do
- 
+
 !.... localize the nonlinear term
 
       Fl = F(n,k,:,:)
@@ -115,7 +117,7 @@
         Fnorm = Fnorm + opi(j) * ( abs(Fl(j,1))**2 + abs(Fl(j,2))**2 + &
                                      abs(Fl(j,3))**2 )
       end do
-      
+
       if ( (Fnorm/unorm .le. eps) .and. (ke/tke .le. eps) ) goto 80
 
       if (ke .eq. zero) then
@@ -250,7 +252,7 @@
       else
         call error('solver$','Illegal value of ipwbc$')
       end if
-      
+
       l = ny
       l0 = (l-1)*ndof
 
@@ -291,7 +293,7 @@
 
       A0(l0+4,:) = czero
       if (ipbc .eq. 0) then
-        A0(l0+4,l0+4) = cone      
+        A0(l0+4,l0+4) = cone
       else if (ipbc .eq. 1) then
         do m = 1, ny
           m0 = (m-1)*ndof
@@ -324,7 +326,7 @@
       else
         r(l0+4) = czero
       end if
-      
+
       l = ny
       l0 = (l-1)*ndof
 !      r(l0+1) = czero
@@ -406,7 +408,7 @@
 !     Marching for all modes
 !============================================================================
       do i = is+1, ie
-      
+
       new = .false.
 
       cpu2 = second()
@@ -633,7 +635,7 @@
       else
         call error('solver$','Illegal value of ipwbc$')
       end if
-      
+
       l = ny
       l0 = (l-1)*ndof
 
@@ -674,7 +676,7 @@
 
       A0(l0+4,:) = czero
       if (ipbc .eq. 0) then
-        A0(l0+4,l0+4) = cone      
+        A0(l0+4,l0+4) = cone
       else if (ipbc .eq. 1) then
         do m = 1, ny
           m0 = (m-1)*ndof
@@ -720,7 +722,7 @@
       else
         r(l0+4) = czero
       end if
-      
+
       l = ny
       l0 = (l-1)*ndof
       if (k.eq.1 .and. n.eq.1) then  ! always use for 00 mode
