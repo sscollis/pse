@@ -9,13 +9,13 @@ either CRAY or SGI FFT routines that must now be replaced (ideally with FFTW).
 There is also usage of deprecated LINPACK routines that should be replaced by
 LAPACK.
 
-Finally, the build uses a couple of commercially licensed routines from 
+Finally, the build uses a couple of commercially licensed routines from
 Numerical-Recipes in FORTRAN that are turned on using
 
 ## How to Build
 
     ln -s gcc.mak Makefile
-    make USE_NR=1 
+    make USE_NR=1
 
 Note that the Numerical-Recipies code is not distributed with PSE and can only
 be used by use under the terms of the commercial license.  It would be great
@@ -33,4 +33,5 @@ parallel     |  test cases on parallel boundary layers
 nonpar       |  Nonparallel flow version
 notes        |  Code notes and users guide
 
-S. Scott Collis
+S. Scott Collis\
+flow.physics.simulation@gmail.com
