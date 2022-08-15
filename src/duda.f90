@@ -4,7 +4,6 @@
 !     Compute the derivative of the PSE shape function wrt alpha
 !
 !     Notes:  1) Validated for parallel flow
-!             2)
 !
 !     S. Scott Collis
 !
@@ -82,7 +81,7 @@
       write(*,"('Read adj.in')")
 
       open(10,file='field.pse',form='unformatted')
-      read(10) nxl, nyl 
+      read(10) nxl, nyl
       allocate(uh(nx,ny,ndof))
       read(10) (((uh(i,j,idof),j=1,ny),i=is,ie),idof=1,ndof)
       close(10)
@@ -114,7 +113,7 @@
 
 !.... initialize the field
 
-      open(10, file='ddalpha.dat') 
+      open(10, file='ddalpha.dat')
       read(10,*) cdum, ampr, ampi
       ampl = cmplx(ampr,ampi)
       do j = 1, ny
@@ -127,7 +126,7 @@
       close(10)
 
 !.... compute the J inner product
-        
+
       Jprod = czero
       do j = 1, ny
         Jprod = Jprod + opi(j) * ( &
@@ -160,7 +159,7 @@
       do i = is+1, ie
 
 !.... compute the J inner product
-        
+
         Jprod = czero
         do j = 1, ny
           Jprod = Jprod + opi(j) * ( &
@@ -181,7 +180,7 @@
 
         dwda = Jprod/L2prod
 
-!.... HACK:  set d omega / d alpha = zero 
+!.... HACK:  set d omega / d alpha = zero
 
         dwda = czero
 
@@ -201,7 +200,7 @@
         vl = u(i-1,:,k,n,2)
         wl = u(i-1,:,k,n,3)
         pl = u(i-1,:,k,n,4)
-        
+
 !.... compute the streamwise derivative of alpha
 
         dalpha(k,n) = ( alpha(i,k,n) - alpha(i-1,k,n) ) / ( x(i) - x(i-1) )
@@ -363,7 +362,7 @@
 
         A0(l0+4,:) = czero
         if (ipbc .eq. 0) then
-          A0(l0+4,l0+4) = cone  
+          A0(l0+4,l0+4) = cone
         else if (ipbc .eq. 1) then
           do m = 1, ny
             m0 = (m-1)*ndof
@@ -377,7 +376,7 @@
 
         r = czero
 
-        Ab = -iota * A - two * alphal * Ex + iota * dwda * G 
+        Ab = -iota * A - two * alphal * Ex + iota * dwda * G
 
         do ldof = 1, ndof
           do l = 1, ny
@@ -394,9 +393,9 @@
         if (ipfix.eq.1 .or. (ipfix.eq.2 .and. i.eq.2) ) then
            Ab = A; Ab(:,:,4) = zero
         end if
-        
+
         Ab = Ab - two * iota * alphal * Ex
-        
+
         do ldof = 1, ndof
           do l = 1, ny
             l0 = (l-1)*ndof
@@ -406,7 +405,7 @@
             end do
           end do
         end do
-        
+
 !.... Enforce the boundary conditions on the RHS
 
         l = 1
@@ -419,7 +418,7 @@
         else
           r(l0+4) = czero
         end if
-        
+
         l = ny
         l0 = (l-1)*ndof
         r(l0+1) = czero

@@ -5,7 +5,6 @@
 !
 !     Revised:  5-29-98  S.Collis
 !               Now it interpolates the profile to a new mesh.
-!
 !==============================================================================
       use global
       use findmf
@@ -25,7 +24,7 @@
                             cuin(:), cvin(:), cwin(:), ct(:)
 
       real, external :: f
-#ifdef CRAY 
+#ifdef CRAY
       real, external :: sdot
 #else
       real, external :: ddot
@@ -91,7 +90,7 @@
         do j = 1, ny
           y(j) = real(j-1) * ymax / real(ny-1)
         end do
-        
+
         do j = 1, ny
           y(j) = ymax * ystr / ( ymax - 2.0 * ystr ) * real(j-1)/real(ny-1) &
             / ( 1.0 + ymax * ystr / ( ymax - 2.0 * ystr ) / ymax - &
@@ -166,7 +165,7 @@
         end if
 
 !       write(87,"(4(1pe13.6,1x))") y(j), ub(j,ix)
-        
+
       end do
 
       deallocate( uin, vin, win, yin, w, cuin, cvin, cwin, ct, cyin )
@@ -185,7 +184,7 @@
 
 !.... make the streamwise mesh for parallel flow
 
-!.... for the stretched mesh:  xs1 and xs2 are breakpoints, 
+!.... for the stretched mesh:  xs1 and xs2 are breakpoints,
 !....                          dx1 is the initial dx
 
       if (xs1 .gt. xmax) then      ! uniform mesh

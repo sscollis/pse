@@ -1,4 +1,4 @@
-!========================================================
+!==============================================================================
 ! Module int_str        transfer integer number to a string
 !
 ! Version 1.0           Yong Chang Aug. 1, 1998
@@ -16,18 +16,17 @@
 !
 ! Recommend: use function 1. or 3. or 5.
 !
-!========================================================
+!==============================================================================
+   module int_str
 
-
-module int_str
-  implicit none
-contains
+   implicit none
+   contains
 
   !note: use--------:                     trim(i2c(i))
    function i2c(int) result(str)
      integer, intent(in) :: int
      character(len=12)   :: str
-     
+
      write(str,"(i12)") int
      str = adjustl(str)
    end function i2c
@@ -37,7 +36,7 @@ contains
      character, dimension(:), pointer :: str_point
      character(len=12) :: tmp
      integer:: lt,i
-     
+
      write(tmp,"(i12)") int
      tmp = adjustl(tmp)
      lt = len_trim(tmp)
