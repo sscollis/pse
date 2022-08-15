@@ -6,7 +6,7 @@ program inprod
       real :: yl, ur, ui, vr, vi, wr, wi, pr, pi
       complex, allocatable :: u(:,:), q(:,:)
       complex :: prod
-      
+
       open(10,file='time.out')
       ny = 0
       do while (.true.)
@@ -37,7 +37,7 @@ program inprod
       close(10)
 
 !.... form the inner product
-      
+
       prod = 0.0
       do j = 1, ny-1
 	prod = prod + ( u(j,1)*q(j,1) + u(j,2)*q(j,2) + u(j,3)*q(j,3) + &
