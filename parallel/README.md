@@ -6,7 +6,7 @@ Re_delta^* = 1000
 length scale = delta^*
 omega = 0.08
 
-In Blasius units this cooresponds to:
+In Blasius units this corresponds to:
 
 R = 581.1282908467194
 F = 137.6632341947040

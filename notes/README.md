@@ -17,3 +17,4 @@ Note that you could switch this to use PDF format if you wish.
     open pse.ps
 
 S. Scott Collis\
+flow.physics.simulation@gmail.com
