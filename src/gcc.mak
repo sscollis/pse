@@ -39,8 +39,10 @@ ifdef USE_NR
     LIBNR_DIR = $(HOME)/git/NR-utilities
   endif
   LIB += -L$(LIBNR_DIR) -lnr 
+else
+  $(warning PSE currently requires that you build with USE_NR defined)
+  $(info build will fail at link stage.)
 endif
-
 #ifdef USE_NR
 #  OBJS += nr_rtsafe.o
 #endif
